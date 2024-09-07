@@ -170,7 +170,7 @@ class Program {
 						m = new();
 						
 						{
-							f = Intrinsic.Create("setLayerTilemap");
+							f = Intrinsic.Create("setLayer");
 
 							f.AddParam("index");
 							f.code = (context, partialResult) => {
@@ -182,7 +182,7 @@ class Program {
 							};
 
 							m.SetElem(new ValString(f.name), f.GetFunc());
-							//Print("Injected <Engine>.<Tilemap>.setLayerTilemap");
+							//Print("Injected <Engine>.<Tilemap>.setLayer");
 						}
 							
 						return new Intrinsic.Result(m);
