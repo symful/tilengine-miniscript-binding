@@ -1,0 +1,6 @@
+[submodule "CsTilengine"]
+	path = CsTilengine
+	url = https://github.com/megamarc/CsTilengine
+[submodule "miniscript"]
+	path = miniscript
+	url = https://github.com/JoeStrout/miniscript
