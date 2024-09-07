@@ -68,16 +68,16 @@ class Program {
 			return;
 		}
 
-		List<string> sourceLines = null;
-		List<string> expectedOutput = null;
+		List<string>? sourceLines = null;
+		List<string>? expectedOutput = null;
 		int testLineNum = 0;
 		int outputLineNum = 0;
 
-		string line = file.ReadLine();
+		string? line = file.ReadLine();
 		int lineNum = 1;
 		while (line != null) {
 			if (line.StartsWith("====")) {
-				if (sourceLines != null) Test(sourceLines, testLineNum, expectedOutput, outputLineNum);
+				if (sourceLines != null) Test(sourceLines, testLineNum, expectedOutput!, outputLineNum);
 				sourceLines = null;
 				expectedOutput = null;
 			} else if (line.StartsWith("----")) {
@@ -96,7 +96,7 @@ class Program {
 			line = file.ReadLine();
 			lineNum++;
 		}
-		if (sourceLines != null) Test(sourceLines, testLineNum, expectedOutput, outputLineNum);
+		if (sourceLines != null) Test(sourceLines, testLineNum, expectedOutput!, outputLineNum);
 		Print("\nIntegration tests complete.\n");
 	}
     static void RunFile(string path, bool dumpTAC=false) {
@@ -107,11 +107,11 @@ class Program {
 		}
 
 		List<string> sourceLines = [];
-		while (!file.EndOfStream) sourceLines.Add(file.ReadLine());
+		while (!file.EndOfStream) sourceLines.Add(file.ReadLine()!);
 
         Interpreter miniscript = new(sourceLines)
         {
-            standardOutput = (string s, bool eol) => Print(s, eol)
+            standardOutput = Print
         };
         miniscript.implicitOutput = miniscript.standardOutput;
 		miniscript.Compile();
@@ -148,7 +148,7 @@ class Program {
 			f.AddParam("loadPath");
 			f.code = (context, partialResult) => {
 				engine = Engine.Init(context.GetLocalInt("hres"), context.GetLocalInt("vres"), context.GetLocalInt("numLayers"), context.GetLocalInt("numSprites"), context.GetLocalInt("numAnimations"));
-				window = Window.Create(null, (WindowFlags)context.GetLocalInt("flag"));
+				window = Window.Create(null!, (WindowFlags)context.GetLocalInt("flag"));
 
 				engine.LoadPath = context.GetLocalString("loadPath");
 
@@ -162,7 +162,7 @@ class Program {
 
 					f.AddParam("path");
 					f.code = (context, partialResult) => {
-						Tilemap map = Tilemap.FromFile(context.GetLocalString("path"), null);
+						Tilemap map = Tilemap.FromFile(context.GetLocalString("path"), null!);
 						ValMap r = new();
 						ValMap m;
 						Intrinsic f; 
