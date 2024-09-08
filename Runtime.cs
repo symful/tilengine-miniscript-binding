@@ -437,7 +437,7 @@ class Runtime
 
 
 
-    ValFunction GetTest()
+    /*ValFunction GetTest()
     {
 
         Intrinsic f = Intrinsic.Create("test");
@@ -455,16 +455,18 @@ class Runtime
         };
 
         return f.GetFunc();
-    }
+    }*/
 
-    Value Invoke(ValFunction function, Value[] arguments)
+    //delegate void Callback(Value value);
+
+    void Invoke(ValFunction function, Value[] arguments)
     {
-        Value val = null!;
-
-        interpreter.vm.ManuallyPushCall(function, val, [.. arguments]);
-
-        return val;
+        interpreter.vm.ManuallyPushCall(function, null, [.. arguments]);
     }
+    /*void InvokeValue(ValFunction function, Value[] arguments)
+    {
+        interpreter.vm.ManuallyPushCall(function, null, [.. arguments]);
+    }*/
     ValMap GetTilengine()
     {
         ValMap tilengine = new();
@@ -475,7 +477,7 @@ class Runtime
         tilengine.SetElem(new ValString("flags"), GetFlags());
         //Print("Injected Tilengine.flags");
 
-        tilengine.SetElem(new ValString("test"), GetTest());
+        //tilengine.SetElem(new ValString("test"), GetTest());
         //Print("Injected Tilengine.test");
 
         tilengine.SetElem(new ValString("inputs"), GetInputs());
